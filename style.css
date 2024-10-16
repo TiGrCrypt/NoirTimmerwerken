@@ -10,3 +10,11 @@ body {
   font-weight: 400;
   color: #1e1e1e;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+.hero {
+  max-width: 130rem;
+}
