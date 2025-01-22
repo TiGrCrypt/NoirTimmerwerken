@@ -1,0 +1,259 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: "border-box";
+}
+
+body {
+  font-family: "Monotype Corsiva";
+  line-height: 1;
+  font-weight: 400;
+  color: #1e1e1e;
+  background-color: #fafafa;
+  position: relative;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.header {
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+}
+
+.header-menu {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header-logo {
+  height: 20rem;
+}
+
+.header-menu ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 5rem;
+  list-style-type: none;
+}
+
+.sticky-nav{
+  height: 15rem;;
+  width: 100%;
+  top: -15rem;
+  display: none;
+  justify-content: center;
+  color: #fafafa;
+  background-color: #1e1e1e;
+}
+
+.sticky-nav.sticky{
+  top:0;
+  display: flex;
+  position: fixed;
+  transition: all linear 0.2s;
+
+  @starting-style{
+    top:-15rem;
+  }
+}
+
+.sticky-nav-menu{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sticky-nav-menu ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 3.2rem;
+  list-style-type: none;
+}
+
+.sticky-nav-logo{
+  height: 15rem;
+}
+
+img svg {
+  fill:#fafafa;
+}
+
+.btn-mobile-nav {
+  background: none;
+  position: fixed;
+  display: none;
+  right: 3rem;
+  border: 0;
+}
+
+.section-homepage {
+  min-height: calc(100vh - 20rem);
+}
+
+.hero {
+  display: grid;
+  width: 100%;
+}
+
+.image-box {
+  width: 100%;
+  min-height: 60vh;
+  overflow: hidden;
+  background-image: url("../img/makita-saw.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.hero-quote {
+  width: 85rem;
+  font-size: 7.5rem;
+  font-weight: 44;
+  color: #fafafa;
+  margin-bottom: 5%;
+}
+
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60vh - 20rem);
+}
+
+.testimonial-text {
+  font-family: "Alegreya SC";
+  width: 45rem;
+  font-size: 3.2rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.testimonial-writer {
+  margin-top: 2.4rem;
+  font-family: "Alex Brush";
+  font-size: 2.8rem;
+}
+.title-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 1500px) {
+  .header {
+    height: 13rem;
+  }
+  .header-logo {
+    height: 13rem;
+  }
+  .header-menu ul {
+    font-size: 2.8rem;
+  }
+  .hero-quote {
+    width: 50rem;
+    font-size: 3.8rem;
+    margin-bottom: 5%;
+  }
+
+  .image-box {
+    min-height: 55vh;
+  }
+
+  .testimonials {
+    padding: 1rem;
+    min-height: calc(100vh - 55vh - 15rem);
+  }
+  .testimonial-text {
+    font-family: "Alegreya SC";
+    width: 45rem;
+    font-size: 2.1rem;
+  }
+  .testimonial-writer {
+    margin-top: 1.4rem;
+  }
+
+  .mobile-line{
+    stroke-width: 3; 
+    stroke-linecap: round"
+  }
+
+  .dark{
+    stroke: #1e1e1e;
+  }
+
+  .light{
+    stroke: #fafafa;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .title-mobile {
+    margin: 2rem 3rem;
+    display: inline-block;
+    font-size: 6.8rem;
+    font-family: "Kunstler Script";
+    font-weight: 100;
+  }
+
+  .btn-mobile-nav {
+    display: block;
+  }
+
+  .header-menu {
+    display: none;
+  }
+
+  .sticky-nav.sticky{
+    display: none;
+  }
+
+  .header {
+    height: 12.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-logo {
+    height: 10rem;
+  }
+
+  .section-homepage {
+    height: calc(100vh - 12.5rem);
+  }
+
+  .image-box {
+    align-items: center;
+  }
+
+  .hero-quote {
+    font-size: 2.5rem;
+    font-weight: 44;
+    color: #fafafa;
+    margin: 5rem;
+    margin-bottom: 10rem;
+  }
+
+  .testimonials {
+    height: calc(100vh - 60vh - 12.5rem);
+  }
+
+  .testimonial-text {
+    font-size: 1.2rem;
+    width: 20rem;
+  }
+
+  .testimonial-writer {
+    font-size: 1rem;
+  }
+}
