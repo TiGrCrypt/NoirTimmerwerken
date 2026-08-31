@@ -4,6 +4,8 @@
  * kleuraannames (dat regelt de ouder-component via CSS), zodat 'm
  * zowel licht-op-donker als donker-op-licht ingezet kan worden.
  */
+import { scrollToHash } from '../../composables/useAnchorScroll'
+
 defineProps({
   links: {
     type: Array,
@@ -11,13 +13,19 @@ defineProps({
     // [{ label: 'Home', href: '#home' }, ...]
   },
 })
+
+function onClick(event, href) {
+  if (!href?.startsWith('#')) return
+  event.preventDefault()
+  scrollToHash(href)
+}
 </script>
 
 <template>
   <nav class="nav-links">
     <ul>
       <li v-for="link in links" :key="link.href">
-        <a :href="link.href">{{ link.label }}</a>
+        <a :href="link.href" @click="onClick($event, link.href)">{{ link.label }}</a>
       </li>
     </ul>
   </nav>

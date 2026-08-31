@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import NavLinks from './NavLinks.vue'
 import MobileNavToggle from './MobileNavToggle.vue'
+import { scrollToHash } from '../../composables/useAnchorScroll'
 
 const props = defineProps({
   logo: { type: String, required: true },
@@ -18,6 +19,13 @@ const props = defineProps({
 const mobileOpen = ref(false)
 const toggleMobile = () => {
   mobileOpen.value = !mobileOpen.value
+}
+
+function onMobileLinkClick(event, href) {
+  if (!href?.startsWith('#')) return
+  event.preventDefault()
+  scrollToHash(href)
+  // het menu zelf sluit al via de @click op de <nav>-wrapper (bubbelt door)
 }
 
 const allLinks = [...props.leftLinks, ...props.rightLinks]
@@ -52,7 +60,7 @@ const allLinks = [...props.leftLinks, ...props.rightLinks]
     <nav v-if="mobileOpen" class="mobile-menu" @click="mobileOpen = false">
       <ul>
         <li v-for="link in allLinks" :key="link.href">
-          <a :href="link.href">{{ link.label }}</a>
+          <a :href="link.href" @click="onMobileLinkClick($event, link.href)">{{ link.label }}</a>
         </li>
       </ul>
     </nav>
