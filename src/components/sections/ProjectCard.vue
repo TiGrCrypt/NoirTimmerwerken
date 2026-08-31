@@ -21,11 +21,18 @@ defineProps({
 })
 
 const lightboxIndex = ref(null)
+// Op mobiel wordt de tekst afgekapt (line-clamp); deze knop laat je 'm
+// alsnog volledig lezen. Op desktop wordt niets afgekapt, dus daar blijft
+// de knop via CSS verborgen.
+const expanded = ref(false)
 </script>
 
 <template>
   <article class="project-card">
-    <p>{{ description }}</p>
+    <p :class="{ expanded }">{{ description }}</p>
+    <button type="button" class="read-more" @click="expanded = !expanded">
+      {{ expanded ? 'Lees minder' : 'Lees meer' }}
+    </button>
     <div class="photo-grid">
       <img
         v-for="(src, i) in images"
@@ -66,6 +73,12 @@ const lightboxIndex = ref(null)
   margin-bottom: 2.6rem;
 }
 
+/* Alleen relevant op mobiel (zie media query) — op desktop wordt de
+   tekst nooit afgekapt, dus is er niets om uit te klappen. */
+.read-more {
+  display: none;
+}
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -89,28 +102,43 @@ const lightboxIndex = ref(null)
 @media only screen and (max-width: 600px) {
   .project-card {
     width: 34rem;
-    padding: 1.8rem 1.6rem;
+    padding: 2.2rem 2rem;
   }
-  /* Beschrijving inkorten met "..." i.p.v. de volledige tekst — scheelt
-     flink wat hoogte, de volledige tekst blijft nergens anders nodig. */
+  /* Weer meer regels tekst nu de sectie kan meegroeien i.p.v. vastzitten
+     op 1 schermhoogte — en met een "Lees meer"-knop kun je de rest
+     alsnog lezen in plaats van dat hij gewoon afgekapt blijft. */
   .project-card p {
-    font-size: 1.6rem;
-    line-height: 1.5;
-    margin-bottom: 1.4rem;
+    font-size: 1.7rem;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  /* Compacter fotogrid: vierkant i.p.v. hoog-rechthoekig, en de 4e/5e
-     foto (2e rij) verbergen we in de preview — die blijven gewoon
-     bereikbaar via de fullscreen-gallerij (klik op een foto). */
-  .photo-grid img {
-    aspect-ratio: 1 / 1;
+  .project-card p.expanded {
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
+  .read-more {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    font-family: var(--font-corsiva);
+    font-style: italic;
+    font-size: 1.5rem;
+    text-decoration: underline;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  /* Foto's blijven vierkant op mobiel (ook de 4e/5e, die op desktop
+     breder/lager zijn) — compacter en rustiger in de 2 rijen. */
+  .photo-grid img,
   .photo-grid img:nth-child(4),
   .photo-grid img:nth-child(5) {
-    display: none;
+    aspect-ratio: 1 / 1;
   }
 }
 </style>
