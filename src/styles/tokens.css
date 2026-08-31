@@ -38,3 +38,15 @@
   --breakpoint-md: 1500px;
   --breakpoint-sm: 600px;
 }
+
+/* De sticky header wordt op mobiel kleiner (zie AppHeader.vue, header-sticky
+   op max-width: 600px = 8rem i.p.v. 11.1rem). --header-height-small wordt
+   gebruikt als scroll-margin-top voor de secties (App.vue), dus die moet
+   hier meebewegen — anders scrolt een navigatie-klik op mobiel te ver
+   (want hij compenseert dan voor een header die groter is dan hij echt is). */
+@media only screen and (max-width: 600px) {
+  :root {
+    --header-height-small: 8rem;
+    --header-height-big: 8rem;
+  }
+}

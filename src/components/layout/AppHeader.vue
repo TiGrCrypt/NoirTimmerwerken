@@ -160,7 +160,7 @@ const allLinks = [...props.leftLinks, ...props.rightLinks]
 
 @media only screen and (max-width: 600px) {
   .header {
-    height: 8rem;
+    height: var(--header-height-big);
     justify-content: space-between;
     padding: 0 2rem;
   }
@@ -171,7 +171,7 @@ const allLinks = [...props.leftLinks, ...props.rightLinks]
     height: 6rem;
   }
   .header-sticky {
-    height: 8rem;
+    height: var(--header-height-small);
   }
   .header-sticky .header-logo {
     height: 5rem;

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStickyNav } from './composables/useStickyNav'
 import { useScrollSpy } from './composables/useScrollSpy'
 
@@ -28,8 +28,16 @@ const rightLinks = [
 
 // Hoogte van de sticky (kleine) balk — moet in sync blijven met
 // --header-height-small in styles/tokens.css (11.1rem = 111px, bij
-// html { font-size: 62.5% } dus 1rem = 10px).
-const STICKY_HEADER_HEIGHT_PX = 111
+// html { font-size: 62.5% } dus 1rem = 10px; op mobiel (<=600px) is de
+// sticky balk zelf kleiner — 8rem = 80px, zie AppHeader.vue — dus deze
+// waarde moet meebewegen, anders wisselt de headerkleur op het verkeerde
+// scrollpunt op mobiel.
+const mobileQuery = window.matchMedia('(max-width: 600px)')
+const isMobileHeader = ref(mobileQuery.matches)
+const onMobileQueryChange = (e) => { isMobileHeader.value = e.matches }
+onMounted(() => mobileQuery.addEventListener('change', onMobileQueryChange))
+onBeforeUnmount(() => mobileQuery.removeEventListener('change', onMobileQueryChange))
+const STICKY_HEADER_HEIGHT_PX = computed(() => (isMobileHeader.value ? 80 : 111))
 
 // Secties + hun "kleur" (achtergrond) — bepaalt straks de kleur van de
 // sticky nav zodra die sectie zich er net onder bevindt.
@@ -48,7 +56,7 @@ function setSectionEl(id, el) {
 // Sticky wordt actief zodra de Home-sectie (sectie 1) uit beeld scrolt,
 // d.w.z. zodra je bij sectie 2 (Projecten) aankomt.
 const homeEl = computed(() => sections.value[0].el)
-const { isSticky } = useStickyNav(homeEl)
+const { isSticky } = useStickyNav(homeEl, STICKY_HEADER_HEIGHT_PX)
 
 // Welke sectie zit er nu net onder de sticky balk?
 const { activeTheme } = useScrollSpy(sections, STICKY_HEADER_HEIGHT_PX)
@@ -114,5 +122,26 @@ const projects = [
 <style scoped>
 .section-anchor {
   scroll-margin-top: var(--header-height-small);
+}
+
+/* Home is een uitzondering: de sectie zelf begint pas ná de statische
+   (grote) header, die gewoon "in de pagina" staat (position: relative,
+   geen fixed overlay). Om bij het klikken op "Home" weer helemaal naar
+   de top van de pagina te scrollen (met de volledige grote header
+   zichtbaar), moet de marge dus de hoogte van de GROTE header zijn — niet
+   de kleine (die is voor de fixed sticky balk op de andere secties) en
+   niet 0 (dat scrolt juist te ver door, tot ná de header). */
+#home.section-anchor {
+  scroll-margin-top: var(--header-height-big);
+}
+
+/* Contact is de laatste sectie: die is precies 100vh hoog en er komt
+   niets meer na. Met de gewone marge (balkhoogte) land je zo dat de
+   footer onderaan net buiten beeld valt (en er nog een randje van de
+   vorige sectie bovenaan piept). Zonder marge scrolt de browser gewoon
+   door tot het einde van de pagina, waardoor de hele sectie — inclusief
+   footer — in één keer in beeld komt. */
+#contact.section-anchor {
+  scroll-margin-top: 0;
 }
 </style>

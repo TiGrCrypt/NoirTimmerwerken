@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, toValue } from 'vue'
 
 /**
  * Herbruikbare scroll-spy: bepaalt welke sectie zich net "achter" een
@@ -7,7 +7,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
  * de sectie waar de gebruiker net overheen scrolt.
  *
  * @param {import('vue').Ref<Array<{ id: string, theme: 'light'|'dark', el: HTMLElement|null }>>} sections
- * @param {number} offsetPx - denkbeeldige lijn (in px vanaf de top van het scherm) die bepaalt welke sectie "actief" is
+ * @param {number|import('vue').Ref<number>|(() => number)} offsetPx - denkbeeldige lijn (in px vanaf de top van het scherm) die bepaalt welke sectie "actief" is (mag ook reactief zijn, bv. als de headerhoogte per breakpoint verschilt)
  * @returns {{ activeTheme: import('vue').Ref<string> }}
  */
 export function useScrollSpy(sections, offsetPx = 0) {
@@ -16,12 +16,13 @@ export function useScrollSpy(sections, offsetPx = 0) {
 
   function update() {
     ticking = false
+    const offset = toValue(offsetPx)
     const entries = sections.value
     let current = entries[0]
     for (const entry of entries) {
       if (!entry.el) continue
       const top = entry.el.getBoundingClientRect().top
-      if (top <= offsetPx) {
+      if (top <= offset) {
         current = entry
       } else {
         break
