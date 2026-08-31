@@ -75,7 +75,7 @@ function onScroll() {
 <style scoped>
 .section-projects {
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   background-color: var(--color-ink);
   color: var(--color-paper);
   display: flex;

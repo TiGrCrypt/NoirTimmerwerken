@@ -23,7 +23,7 @@ defineProps({
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   background-color: var(--color-paper);
   color: var(--color-ink);
   padding: 6rem 16rem;

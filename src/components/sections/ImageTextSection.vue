@@ -100,7 +100,7 @@ defineProps({
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100svh;
     overflow: hidden;
     padding: 3rem 2rem;
   }

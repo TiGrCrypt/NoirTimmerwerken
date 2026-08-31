@@ -24,10 +24,13 @@ defineProps({
 
 <style scoped>
 .section-hero {
-  /* dvh = de ECHTE zichtbare hoogte op mobiel (houdt rekening met de
-     adresbalk die in-/uitschuift); vh valt terug voor oudere browsers. */
+  /* svh = de hoogte met de mobiele adresbalk ZICHTBAAR (de "kleinste"
+     variant). Bewust svh i.p.v. dvh: dvh verandert live zodra de balk
+     in-/uitschuift tijdens het scrollen, waardoor secties tijdens een
+     scroll-animatie van hoogte veranderen en je net verkeerd landt.
+     svh ligt vast, dus geen verspringen — vh valt terug voor oude browsers. */
   min-height: calc(100vh - var(--header-height-big));
-  min-height: calc(100dvh - var(--header-height-big));
+  min-height: calc(100svh - var(--header-height-big));
   display: flex;
   flex-direction: column;
 }
