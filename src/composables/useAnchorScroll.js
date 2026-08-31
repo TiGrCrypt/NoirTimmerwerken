@@ -24,7 +24,10 @@ export function scrollToHash(href) {
     const marginTop = parseFloat(getComputedStyle(el).scrollMarginTop) || 0
     const rectTop = el.getBoundingClientRect().top + window.scrollY
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-    return Math.max(0, Math.min(rectTop - marginTop, maxScroll))
+    // Afronden op hele pixels: scrollTo/scrollY werken zelf ook met hele
+    // (device-)pixels, dus zonder afronding vergelijk je een fractioneel
+    // doel met een geheel resultaat en lijkt het altijd "1px" te schelen.
+    return Math.round(Math.max(0, Math.min(rectTop - marginTop, maxScroll)))
   }
 
   // URL bijwerken zonder de native (ongecontroleerde) jump-scroll te
@@ -40,7 +43,7 @@ export function scrollToHash(href) {
   // animatie) corrigeren.
   function settle() {
     const drift = Math.abs(window.scrollY - targetY())
-    if (drift > 2) {
+    if (drift > 0) {
       window.scrollTo({ top: targetY(), behavior: 'auto' })
     }
   }
