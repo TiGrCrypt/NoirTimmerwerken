@@ -114,13 +114,13 @@ const telHref = (phone) => `tel:${phone.replace(/\s+/g, "")}`;
   gap: 6rem;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 90rem;
+  max-width: 116rem;
   margin: 0 auto;
 }
 
 .contact-image {
-  flex: 1 1 40rem;
-  max-width: 50rem;
+  flex: 1 1 50rem;
+  max-width: 62rem;
 }
 
 .contact-image img {
