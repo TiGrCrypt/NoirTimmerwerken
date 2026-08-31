@@ -24,7 +24,10 @@ defineProps({
 
 <style scoped>
 .section-hero {
+  /* dvh = de ECHTE zichtbare hoogte op mobiel (houdt rekening met de
+     adresbalk die in-/uitschuift); vh valt terug voor oudere browsers. */
   min-height: calc(100vh - var(--header-height-big));
+  min-height: calc(100dvh - var(--header-height-big));
   display: flex;
   flex-direction: column;
 }

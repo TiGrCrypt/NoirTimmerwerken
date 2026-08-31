@@ -23,6 +23,7 @@ defineProps({
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-paper);
   color: var(--color-ink);
   padding: 6rem 16rem;
@@ -35,8 +36,9 @@ defineProps({
 
 @media only screen and (max-width: 600px) {
   .section-about {
-    padding: 3rem;
-    min-height: auto;
+    /* Geen padding meer: de foto (overlay-on-mobile) mag hier tot de
+       randen komen en de volledige sectiehoogte vullen. */
+    padding: 0;
   }
   .flourish {
     right: -6rem;

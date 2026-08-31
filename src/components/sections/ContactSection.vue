@@ -92,6 +92,7 @@ const telHref = (phone) => `tel:${phone.replace(/\s+/g, "")}`;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-ink);
   color: var(--color-paper);
   display: flex;

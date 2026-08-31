@@ -92,12 +92,15 @@ defineProps({
     font-size: 1.9rem;
   }
 
-  /* Foto als achtergrond, tekst erover heen (met scrim voor leesbaarheid) */
+  /* Foto als achtergrond, tekst erover heen (met scrim voor leesbaarheid).
+     Vult de volledige sectie (breedte + hoogte, tot de randen), geen
+     afgeronde hoeken meer — dat hoorde bij de kleinere 55vh-variant. */
   .image-text.overlay-on-mobile {
     display: block;
     position: relative;
-    min-height: 55vh;
-    border-radius: 0.6rem;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
     padding: 3rem 2rem;
   }
