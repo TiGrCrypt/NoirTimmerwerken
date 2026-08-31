@@ -26,12 +26,13 @@ const rightLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-// Hoogte van de sticky (kleine) balk — moet in sync blijven met
-// --header-height-small in styles/tokens.css (11.1rem = 111px, bij
-// html { font-size: 62.5% } dus 1rem = 10px; op mobiel (<=600px) is de
-// sticky balk zelf kleiner — 8rem = 80px, zie AppHeader.vue — dus deze
-// waarde moet meebewegen, anders wisselt de headerkleur op het verkeerde
-// scrollpunt op mobiel.
+// Hoogte van de sticky (kleine) balk — gebruikt door useStickyNav om te
+// bepalen wanneer de balk zelf zichtbaar wordt, en als reservewaarde voor
+// useScrollSpy (die voor de kleurwissel intussen zelf, per sectie, de
+// live CSS scroll-margin-top uitleest — hetzelfde punt waar een nav-klik
+// ook daadwerkelijk landt, inclusief de uitzonderingen voor #home en
+// #contact hieronder. Zo kunnen scroll-landing en kleurwissel niet meer
+// uit sync raken).
 const mobileQuery = window.matchMedia('(max-width: 600px)')
 const isMobileHeader = ref(mobileQuery.matches)
 const onMobileQueryChange = (e) => { isMobileHeader.value = e.matches }
