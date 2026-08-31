@@ -74,8 +74,12 @@ function onScroll() {
 
 <style scoped>
 .section-projects {
-  min-height: 100vh;
-  min-height: 100svh;
+  /* Bewust "height" (i.p.v. min-height) + overflow:hidden: deze sectie
+     mag nooit hoger worden dan één schermhoogte, ook niet als de inhoud
+     eigenlijk meer ruimte zou willen. */
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
   background-color: var(--color-ink);
   color: var(--color-paper);
   display: flex;
@@ -101,10 +105,13 @@ function onScroll() {
 .projects-track {
   display: flex;
   justify-content: safe center;
+  align-items: center;
   gap: 3rem;
   width: 100%;
+  min-height: 0;
   padding: 0 3rem;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding: 0 3rem;
 

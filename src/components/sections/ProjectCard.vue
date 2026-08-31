@@ -3,12 +3,19 @@
  * Herbruikbare projectkaart: titel, beschrijving en een fotogrid
  * (3 vierkante + 2 rechthoekige foto's, zoals in het Figma-ontwerp).
  * images verwacht precies 5 paden, maar rendert ook netjes met minder.
+ * Klik op een foto opent een fullscreen gallerij (ImageLightbox) die bij
+ * die foto begint en waar je verder doorheen kan scrollen/swipen.
  */
+import { ref } from 'vue'
+import ImageLightbox from './ImageLightbox.vue'
+
 defineProps({
   title: { type: String, required: true },
   description: { type: String, required: true },
   images: { type: Array, default: () => [] },
 })
+
+const lightboxIndex = ref(null)
 </script>
 
 <template>
@@ -16,8 +23,24 @@ defineProps({
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
     <div class="photo-grid">
-      <img v-for="(src, i) in images" :key="i" :src="src" :alt="`${title} foto ${i + 1}`" />
+      <img
+        v-for="(src, i) in images"
+        :key="i"
+        :src="src"
+        :alt="`${title} foto ${i + 1}`"
+        @click="lightboxIndex = i"
+      />
     </div>
+
+    <Teleport to="body">
+      <ImageLightbox
+        v-if="lightboxIndex !== null"
+        :images="images"
+        :alt="title"
+        :start-index="lightboxIndex"
+        @close="lightboxIndex = null"
+      />
+    </Teleport>
   </article>
 </template>
 
@@ -59,6 +82,7 @@ defineProps({
   aspect-ratio: 3 / 5;
   object-fit: cover;
   border-radius: 0.6rem;
+  cursor: pointer;
 }
 
 .photo-grid img:nth-child(4),
