@@ -149,6 +149,16 @@ function onScroll() {
 }
 
 @media only screen and (max-width: 600px) {
+  .section-projects {
+    /* Compacter: titel + kaart + puntjes moeten samen in 1 scherm passen. */
+    padding: 2rem 0;
+    gap: 1.4rem;
+  }
+  /* De titel kost op mobiel te veel ruimte t.o.v. wat hij toevoegt (en
+     verdwijnt sowieso zodra de Instagram-koppeling er is). */
+  .title-desktop {
+    display: none;
+  }
   .projects-track {
     padding: 0 1.5rem;
     gap: 2rem;
