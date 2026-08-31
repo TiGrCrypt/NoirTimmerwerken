@@ -1,0 +1,40 @@
+/*
+  Design tokens
+  -------------
+  Gebaseerd op het Figma-bestand "NoirTimmerwerken" (Hi-Fi Desktop/Mobile).
+
+  Fonts: het echte ontwerp gebruikt "Kunstler Script" (het woord "Noir")
+  en "Monotype Corsiva" (bijna alle andere tekst: nav, koppen, body).
+  Dit zijn GEEN webfonts — ze zijn niet vrij te embedden/hosten, dus
+  bezoekers zonder dat font lokaal geïnstalleerd (de meeste mensen) zien
+  ze niet. Oplossing:
+    - "Noir" zelf staat al als vector in het logo-SVG (noir-logo.svg),
+      dus dat blijft altijd exact Kunstler Script, ongeacht het apparaat.
+    - Voor de rest gebruiken we vrije Google Fonts die er sterk op lijken:
+      Pinyon Script (voor grote decoratieve accenten, de rol van Kunstler
+      Script) en Cormorant Garamond italic (voor nav/koppen/body, de rol
+      van Monotype Corsiva — een sierlijke maar wél goed leesbare italic,
+      belangrijk omdat Monotype Corsiva zelf op body-tekst-lengte matig
+      leesbaar is).
+*/
+:root {
+  /* Colors (exact uit Figma) */
+  --color-ink: #1e1e1e;
+  --color-paper: #fafafa;
+
+  /* Fonts */
+  --font-display: "Pinyon Script", cursive; /* Kunstler Script-rol: grote sier-accenten */
+  --font-corsiva: "Cormorant Garamond", serif; /* Monotype Corsiva-rol: nav, koppen, body */
+  --font-heading-caps: "Alegreya SC", serif; /* testimonial quote */
+  --font-script: "Alex Brush", cursive; /* testimonial ondertekening */
+
+  /* Spacing / layout (uit Figma "Component 1": Big = header op Home, Small = header op overige pagina's) */
+  --header-height-big: 18.9rem;
+  --header-height-small: 11.1rem;
+  --nav-font-size-big: 3.8rem;
+  --nav-font-size-small: 2.8rem;
+
+  /* Breakpoints (voor documentatie; media queries kunnen ze niet lezen) */
+  --breakpoint-md: 1500px;
+  --breakpoint-sm: 600px;
+}
